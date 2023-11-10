@@ -6,6 +6,7 @@ import { faCashRegister, faFile, faTag, faUser } from "@fortawesome/free-solid-s
 import styles from "@/styles/Modal.module.css";
 import {useState} from 'react'
 import axios from "axios";
+import swal from "sweetalert";
 
 const AddCourseModal = ({ hideAddCourseModal }) => {
     const [title,setTiltle] = useState();
@@ -16,9 +17,13 @@ const AddCourseModal = ({ hideAddCourseModal }) => {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_APP_API_URL}/courses`,{title})
 
        if(response.status == 201){
+        swal({
+            title:"دوره مورد نظر با موفقیت ثبت شد",
+            icon:"success",
+            buttons:"اوکی"
+        })
         setTiltle("")
         hideAddCourseModal()
-        alert("new course created")
        }
     }
 
