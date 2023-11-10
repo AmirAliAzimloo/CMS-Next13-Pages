@@ -5,7 +5,7 @@ import styles from "@/styles/Course.module.css";
 import axios from "axios";
 import swal from "sweetalert";
 
-const CoursesItem = ({ title , _id }) => {
+const CoursesItem = ({ title , _id , getCourses }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -16,6 +16,7 @@ const CoursesItem = ({ title , _id }) => {
     console.log(_id,"idddd")
     const response = await axios.delete(`${process.env.NEXT_PUBLIC_APP_API_URL}/courses/${_id}`)
     if(response.status == 200){
+      await getCourses()
       setShowDeleteModal(false)
       swal({
         title:"دوره مورد نظر با موفقیت حذف شد",
@@ -33,6 +34,7 @@ const CoursesItem = ({ title , _id }) => {
       title
     })
     if(response.status == 200){
+      await getCourses()
       setShowEditModal(false)
       swal({
         title:"دوره مورد نظر با موفقیت ویرایش شد",

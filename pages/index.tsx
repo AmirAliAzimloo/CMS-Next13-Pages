@@ -8,7 +8,10 @@ interface IndexProps{
 }
 
 const index = ({courses}:IndexProps) => {
-  return <Courses data={courses} />;
+
+  
+
+  return <Courses courses={courses}  />;
 };
 
 export async function getStaticProps(context:any){

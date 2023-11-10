@@ -23,6 +23,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .status(500)
         .json({ message: "Unkonown Internal Server Error" });
     }
+  }else if (req.method == "GET") {
+    try {
+
+      const courses = await coursesModel.find({});
+      
+      return res.status(200).json(courses);
+
+      
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Unkonown Internal Server Error" });
+    }
   }
 };
 

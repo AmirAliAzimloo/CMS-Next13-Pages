@@ -8,7 +8,7 @@ import {useState} from 'react'
 import axios from "axios";
 import swal from "sweetalert";
 
-const AddCourseModal = ({ hideAddCourseModal }) => {
+const AddCourseModal = ({ hideAddCourseModal , getCourses }) => {
     const [title,setTiltle] = useState();
 
     const addNewCourse = async(e)=>{
@@ -17,6 +17,7 @@ const AddCourseModal = ({ hideAddCourseModal }) => {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_APP_API_URL}/courses`,{title})
 
        if(response.status == 201){
+        await getCourses()
         swal({
             title:"دوره مورد نظر با موفقیت ثبت شد",
             icon:"success",
