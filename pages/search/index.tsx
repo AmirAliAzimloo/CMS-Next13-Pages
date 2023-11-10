@@ -1,4 +1,4 @@
-import Courses from "@/components/templates/index/Course";
+import Courses from "@/components/templates/Search/Courses";
 import coursesModel from "@/models/course";
 import { CourseType } from "@/types/course";
 import connectToDB from "@/utils/db"
@@ -14,16 +14,17 @@ const index = ({courses}:IndexProps) => {
   return <Courses courses={courses}  />;
 };
 
-export async function getStaticProps(context:any){
+export async function getServerSideProps(context:any){
 
   connectToDB()
-  const courses = await coursesModel.find({})
+  const {query} = context;
+
+  const courses = await coursesModel.find({title:{$regex:query.q}});
 
   return{
     props:{
       courses:JSON.parse(JSON.stringify(courses))
-    },
-    revalidate:60*60*12 //! 12h
+    }
   }
 }
 

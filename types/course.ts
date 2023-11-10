@@ -1,5 +1,6 @@
 
 
 export type CourseType = {
-    title:String
+    title:String,
+    _id:String
 }

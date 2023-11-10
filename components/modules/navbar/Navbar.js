@@ -4,16 +4,35 @@ config.autoAddCss = false;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "@/styles/Navbar.module.css";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+
+  const [search,setSearch] = useState("")
+  const router = useRouter()
+
+  const searchHandler = ()=>{
+    if(!!search.trim()){
+      router.push(`/search?q=${search}`)
+    }
+
+  }
+
+  useEffect(()=>{
+    setSearch(router.query.q)
+  },[])
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar_search}>
         <input
+          value={search}
+          onChange={e=>setSearch(e.target.value)}
           type="text"
           placeholder="جستجو کنید...."
         />
-        <span className={styles.navbar_search_icon}>
+        <span onClick={searchHandler} className={styles.navbar_search_icon}>
           <FontAwesomeIcon icon={faSearch} />
         </span>
       </div>
