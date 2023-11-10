@@ -18,14 +18,27 @@ export async function getServerSideProps(context:any){
 
   connectToDB()
   const {query} = context;
+  if(query.q){
+    const courses = await coursesModel.find({title:{$regex:query.q}});
 
-  const courses = await coursesModel.find({title:{$regex:query.q}});
+    return{
+        props:{
+          courses:JSON.parse(JSON.stringify(courses))
+        }
+      }
+  }else{
+    connectToDB()
+    const courses = await coursesModel.find({})
 
   return{
     props:{
       courses:JSON.parse(JSON.stringify(courses))
     }
   }
+  }
+
+
+  
 }
 
 export default index;
