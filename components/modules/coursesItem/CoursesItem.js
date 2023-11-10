@@ -25,6 +25,23 @@ const CoursesItem = ({ title , _id }) => {
     }
   }
 
+  const updateCourse = async(  event , title )=>{
+
+    event.preventDefault()
+
+    const response = await axios.put(`${process.env.NEXT_PUBLIC_APP_API_URL}/courses/${_id}`,{
+      title
+    })
+    if(response.status == 200){
+      setShowEditModal(false)
+      swal({
+        title:"دوره مورد نظر با موفقیت ویرایش شد",
+        icon:"success",
+        buttons:"اوکی"
+      })
+    }
+  }
+
   return (
     <>
       <li className={styles.courses_item}>
@@ -55,7 +72,7 @@ const CoursesItem = ({ title , _id }) => {
           </a>
         </div>
       </li>
-      {showEditModal && <EditModal hideEditModal={hideEditModal} />}
+      {showEditModal && <EditModal updateHandler={updateCourse} hideEditModal={hideEditModal} />}
       {showDeleteModal && <DeleteModal removeHandler={removeCourse} hideDeleteModal={hideDeleteModal} />}
     </>
   );
