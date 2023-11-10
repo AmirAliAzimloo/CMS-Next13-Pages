@@ -26,10 +26,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }else if (req.method == "GET") {
     try {
 
-      const courses = await coursesModel.find({});
-      
-      return res.status(200).json(courses);
 
+      if(!!req.query.q){
+        const { q } = req.query;
+        const courses = await coursesModel.find({title:{$regex:q}});
+        return res.status(200).json(courses);
+
+      }else{
+        const courses = await coursesModel.find({});
+        return res.status(200).json(courses);
+      }
       
     } catch (error) {
       return res
