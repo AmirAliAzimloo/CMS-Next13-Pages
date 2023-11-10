@@ -9,7 +9,7 @@ const connectToDB = async()=>{
 
             await mongoose.connect(process.env.NEXT_PUBLIC_DB_URL)
             console.log("Connect To DB Successfully")
-        }
+        } 
     } catch (err) {
         console.log("DB Connection Error =>",err)
     }
