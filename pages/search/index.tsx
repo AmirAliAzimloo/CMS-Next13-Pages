@@ -20,6 +20,7 @@ export async function getServerSideProps(context:any){
   const {query} = context;
   if(query.q){
     const courses = await coursesModel.find({title:{$regex:query.q}});
+    
 
     return{
         props:{
