@@ -19,6 +19,7 @@ export async function getServerSideProps(context:any){
   connectToDB()
   const {query} = context;
   if(query.q){
+    
     const courses = await coursesModel.find({title:{$regex:query.q}});
     
 
